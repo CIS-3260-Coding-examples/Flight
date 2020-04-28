@@ -16,10 +16,8 @@ public String userName = "N/a";		// username made-up by user | Login info
 private String password = "00000000"; //password initally 8 zeros  |  Login info
 public int accountID; // 10-digit account number...... generated when creating an account
 private String question1 = "N/a";
-private String question2 = "N/a";
 private String answer1 = "N/a";
-private String answer2 = "N/a";
-
+private String zipcode;
 
 public Account() {
 	this.dateCreated = new Date();
@@ -107,18 +105,11 @@ public void setAnswer1(String answer) {
 	this.answer1 = answer;
 }
 
-public String getQuestion2() {
-	return question2;
+public String getZipcode() {
+	return zipcode;
 }
-public void setQuestion2(String question) {
-	this.question2 = question;
-}
-
-public String getAnswer2() {
-	return answer2;
-}
-public void setAnswer2(String answer) {
-	this.answer2 = answer;
+public void setZipcode(String zipcode) {
+	this.zipcode = zipcode;
 }
 
 
