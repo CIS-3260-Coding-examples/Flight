@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class SignUpC {
@@ -13,6 +14,7 @@ public class SignUpC {
 	static Stage window = new Stage();
 	
 public static void signupScreen() {
+	window.initModality(Modality.APPLICATION_MODAL);
 	GridPane grid = new GridPane();
 	grid.setPadding(new Insets(10,10,10,10));
 	grid.setHgap(8);
@@ -112,6 +114,7 @@ public static void signupScreen() {
 			ssn1, question, question1, answer, answer1, Lusername, Tusername,Lpassword, Tpassword,cancelbutton,donebutton);
 	scene = new Scene(grid, 550, 500);
 	window.setScene(scene);
-	window.show();
+	window.showAndWait();
+	
 }
 }
