@@ -267,5 +267,5 @@ public class DatabaseMethods {
 			return true;
 		else
 			return false;
-	}*/
+	.}*/
 }
