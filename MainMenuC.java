@@ -13,7 +13,10 @@ import javafx.geometry.*;
 
 public class MainMenuC extends Maindup {
 static Scene scene;
-public static Scene menuScreen() {
+static Account account;
+static Stage window = new Stage();
+
+public static void menuScreen() throws Exception {
 
 GridPane grid = new GridPane();
 grid.setPadding(new Insets(10,10,10,10));
@@ -37,13 +40,13 @@ GridPane.setConstraints(managetrip, 0, 2);
 Button logout = new Button("Log Out");
 GridPane.setConstraints(logout, 0, 3);
 
-logout.setOnAction(e -> {});
+logout.setOnAction(e -> window.close());
 
 grid.getChildren().addAll(bookflight, availableflights,managetrip, logout);
 
 scene = new Scene(grid, 550, 500);
 scene.getStylesheets().add("Viper.css");
-
-return scene;
+window.setScene(scene);
+window.show();
 }
 }

@@ -13,6 +13,8 @@ public class LoginC extends Account{
 	static boolean isCorrect;
 	static Scene scene;
 	static Stage window;
+	static TextField name;
+	static Account account = new Account();
 	public static Stage loginScreen() throws Exception {
 	window = new Stage();
 	window.setTitle("QuickFly");
@@ -27,7 +29,7 @@ public class LoginC extends Account{
 	GridPane.setConstraints(username, 0, 0);
 	
 	//textField
-	TextField name = new TextField();
+	name = new TextField();
 	name.setPromptText("username");
 	GridPane.setConstraints(name, 1, 0);
 	
@@ -54,14 +56,12 @@ public class LoginC extends Account{
 		try {
 			isCorrect = Methods.loginChecker(name.getText(), p.getText());
 			Methods.loginVerified(isCorrect);
-			window.setScene(MainMenuC.menuScreen());
-		
+			MainMenuC.menuScreen();
 		} catch (Exception e1) {
 			Methods.popup("Error", "Invalid Username/Password");
 		}			
 	});
-	
-	signupbutton.setOnAction(e -> window.setScene(SignUpC.signupScreen()));
+	signupbutton.setOnAction(e -> SignUpC.signupScreen());
 	
 	grid.getChildren().addAll(username, name, password, p , logInbutton, signupbutton, connectionStatus);
 	scene = new Scene(grid, 550, 500);
@@ -74,5 +74,10 @@ public class LoginC extends Account{
 	public static void gotToMain() {
 		window.setScene(LoginC.getLoginScene());
 	}
-	
+	public static Account getAccount() {
+		return account;
+	}
+	public static String getuser() {
+		return name.getText();
+	}
 }

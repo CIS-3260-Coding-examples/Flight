@@ -9,8 +9,10 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class SignUpC {
-
-public static Scene signupScreen() {
+	static Scene scene;
+	static Stage window = new Stage();
+	
+public static void signupScreen() {
 	GridPane grid = new GridPane();
 	grid.setPadding(new Insets(10,10,10,10));
 	grid.setHgap(8);
@@ -103,12 +105,13 @@ public static Scene signupScreen() {
 	Button donebutton = new Button("Submit");
 	GridPane.setConstraints(donebutton, 1, 6);
 	
+	donebutton.setOnAction(e -> window.close());
 	//cancel button clicked
-	
 	
 	grid.getChildren().addAll(fName, first, lName, last, address, address1, zipcode,zipcode1,state, state1,ssn, 
 			ssn1, question, question1, answer, answer1, Lusername, Tusername,Lpassword, Tpassword,cancelbutton,donebutton);
-	Scene scene = new Scene(grid, 550, 500);
-	return scene;
+	scene = new Scene(grid, 550, 500);
+	window.setScene(scene);
+	window.show();
 }
 }

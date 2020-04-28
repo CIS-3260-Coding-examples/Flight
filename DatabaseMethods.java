@@ -6,11 +6,13 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class DatabaseMethods {
+
 	public static void main(String[] args) throws Exception {
-		ArrayList<String> list = new ArrayList<String>();
-		getConnection();
-		System.out.println(DatabaseMethods.isConnected());
+		Account account = new Account();
+		account = extractor("FloridaMon");
+		System.out.println(account.getZipcode());
 	}
+
 	public static void createTable() throws Exception {
 		try {
 		Connection con = getConnection();
@@ -152,7 +154,110 @@ public class DatabaseMethods {
 	}
 	return "Not Connected";
 	}
+	public static ArrayList<String> pullAddress(String user) throws Exception {
 	
+		try {
+			Connection con = getConnection();
+			PreparedStatement statement = con.prepareStatement("SELECT address FROM Customer " + user);
+			ResultSet result = statement.executeQuery();
+			ArrayList<String> array = new ArrayList<String>();
+			while(result.next()) {
+				array.add(result.getString("address"));
+			}
+			return array;
+		}
+		catch(Exception e) {
+			System.out.println(e);
+			return null;
+		}
+	}
+	public static ArrayList<String> pullZipCode(String user) throws Exception {
+		try {
+			Connection con = getConnection();
+			PreparedStatement statement = con.prepareStatement("SELECT zip_code FROM Customer " + user);
+			ResultSet result = statement.executeQuery();
+			ArrayList<String> array = new ArrayList<String>();
+			while(result.next()) {
+				array.add(result.getString("zip_code"));
+			}
+			return array;
+		}
+		catch(Exception e) {
+			System.out.println(e);
+			return null;
+		}
+	}
+	public static ArrayList<String> pullFirstName(String user) throws Exception {
+		try {
+			Connection con = getConnection();
+			PreparedStatement statement = con.prepareStatement("SELECT first_name FROM Customer " + user);
+			ResultSet result = statement.executeQuery();
+			ArrayList<String> array = new ArrayList<String>();
+			while(result.next()) {
+				array.add(result.getString("first_name"));
+			}
+			return array;
+		}
+		catch(Exception e) {
+			System.out.println(e);
+			return null;
+		}
+	}
+	public static ArrayList<String> pullMiddleName(String user) throws Exception {
+		try {
+			Connection con = getConnection();
+			PreparedStatement statement = con.prepareStatement("SELECT middle_name FROM Customer " + user);
+			ResultSet result = statement.executeQuery();
+			ArrayList<String> array = new ArrayList<String>();
+			while(result.next()) {
+				array.add(result.getString("middle_name"));
+			}
+			return array;
+		}
+		catch(Exception e) {
+			System.out.println(e);
+			return null;
+		}
+	}
+	public static ArrayList<String> pullLastName(String user) throws Exception {
+		try {
+			Connection con = getConnection();
+			PreparedStatement statement = con.prepareStatement("SELECT last_name FROM Customer " + user);
+			ResultSet result = statement.executeQuery();
+			ArrayList<String> array = new ArrayList<String>();
+			while(result.next()) {
+				array.add(result.getString("last_name"));
+			}
+			return array;
+		}
+		catch(Exception e) {
+			System.out.println(e);
+			return null;
+		}
+	}
+	public static Account extractor(String user) throws Exception {
+		Account account = new Account();
+		ArrayList<String> firstname = new ArrayList<>();
+		firstname = pullFirstName(user);
+	
+		ArrayList<String> middlename = new ArrayList<>();
+		firstname = pullMiddleName(user);
+		
+		ArrayList<String> lastname = new ArrayList<>();
+		firstname = pullLastName(user);
+		
+		account.setName(firstname.get(0),middlename.get(0),lastname.get(0) );
+		
+		ArrayList<String> address = new ArrayList<>();
+		address = pullAddress(user);
+		account.setAddress(address.get(0));
+		
+		ArrayList<String> zipcode = new ArrayList<>();
+		zipcode = pullZipCode(user);
+		account.setZipcode(zipcode.get(0));
+		
+		return account;
+}
 	
 	/*// returns false if login works, false if login does not work
 	public static boolean loginChecker(String username, String pass) throws Exception {
