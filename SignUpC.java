@@ -6,15 +6,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class SignUpC {
 	static Scene scene;
 	static Stage window = new Stage();
-	
+	static boolean answer;
 public static void signupScreen() {
-	window.initModality(Modality.APPLICATION_MODAL);
+	window.setTitle("Registration");
 	GridPane grid = new GridPane();
 	grid.setPadding(new Insets(10,10,10,10));
 	grid.setHgap(8);
@@ -101,12 +102,20 @@ public static void signupScreen() {
 	GridPane.setConstraints(Tpassword, 4, 5);
 
 	//button register
-	Button cancelbutton = new Button("Main Menu");
+	Button cancelbutton = new Button("Back");
 	GridPane.setConstraints(cancelbutton, 0, 6);
 	
 	Button donebutton = new Button("Submit");
 	GridPane.setConstraints(donebutton, 1, 6);
 	
+	window.setOnCloseRequest(e -> {
+	e.consume();
+	closeProgram();
+	});
+	cancelbutton.setOnAction(e -> {
+		e.consume();
+		closeProgram();
+		});
 	donebutton.setOnAction(e -> window.close());
 	//cancel button clicked
 	
@@ -117,4 +126,36 @@ public static void signupScreen() {
 	window.showAndWait();
 	
 }
+public static boolean confirmBox(String title, String message) {
+	
+	Stage window = new Stage();
+	window.initModality(Modality.APPLICATION_MODAL);
+	window.setTitle(title);
+	window.setMinWidth(250);
+	Label label = new Label(message);
+	
+	Button yesB = new Button("Yes");
+	yesB.setOnAction(e -> {
+		answer = true;
+		window.close();
+	});
+	Button noB = new Button("No");
+	noB.setOnAction(e -> {
+	answer = false;
+	window.close();
+	});
+	VBox layout = new VBox();
+	layout.getChildren().addAll(label, yesB, noB);
+	layout.setAlignment(Pos.CENTER);
+	Scene scene = new Scene(layout);
+	window.setScene(scene);
+	window.showAndWait();
+	return answer;
 }
+public static void closeProgram() {
+	boolean answer = SignUpC.confirmBox("Are you sure?", "Are you sure you want to exit the registration?");
+	if(answer)
+		window.close();
+}
+}
+

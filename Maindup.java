@@ -14,14 +14,13 @@ public class Maindup extends Application {
 	static Stage window;
 	public static void main(String[] args) throws Exception {
 		launch(args);
-		
 	}
 
 	@Override
 	public void start(Stage window) throws Exception {
-		window = LoginC.loginScreen();
-		window.show();
-	
+		Methods.startApp(LoginC.loginScreen());
 	}
-	
+	public static void restart() throws Exception {
+		Methods.startApp(LoginC.loginScreen());
+	}
 }
