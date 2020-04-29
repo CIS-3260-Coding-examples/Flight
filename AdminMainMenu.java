@@ -1,5 +1,4 @@
 package GUI;
-
 import javafx.scene.Scene;
 import javafx.stage.*;	
 import javafx.scene.*;
@@ -7,17 +6,18 @@ import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import Classes.Account;
+import Classes.Admin;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.*;
 
-public class MainMenuC extends Maindup {
+public class AdminMainMenu extends Maindup {
 static Scene scene;
-static Account account;
+static Admin admin;
 static Stage window = new Stage();
 
-public static void menuScreen() throws Exception {
+public static void AdminmenuScreen() throws Exception {
 
 GridPane grid = new GridPane();
 grid.setPadding(new Insets(10,10,10,10));
@@ -26,31 +26,16 @@ grid.setVgap(10);
 grid.setAlignment(Pos.CENTER);
 
 //after login button click bookflight
-Button manageflight = new Button("Manage Flight");
-GridPane.setConstraints(manageflight, 0, 0);
+Button editingflight = new Button("Manage Flight");
+GridPane.setConstraints(editingflight, 0, 0);
 	
-		
-		
-//account information
-Button accountInfo = new Button("Account Information");	
-GridPane.setConstraints(accountInfo, 0, 1);
 
 //logout
 Button logout = new Button("Log Out");
 GridPane.setConstraints(logout, 0, 2);
 
-//manageflight button clicked
-manageflight.setOnAction(e -> CustomerBookAFLight.bookflight());
+editingflight.setOnAction(e -> AdminFlightEdit.myFlightA());
 
-//accoung info button clicked
-accountInfo.setOnAction(e -> {
-	try {
-		AccountInfoC.accountScreen();
-	} catch (Exception e1) {
-		// TODO Auto-generated catch block
-		e1.printStackTrace();
-	}
-});
 logout.setOnAction(e -> {
 	window.close();
 	try {
@@ -60,9 +45,10 @@ logout.setOnAction(e -> {
 		// TODO Auto-generated catch block
 		e1.printStackTrace();
 	}	
+	
 });
 
-grid.getChildren().addAll(manageflight, logout,accountInfo);
+grid.getChildren().addAll(editingflight, logout);
 
 scene = new Scene(grid, 550, 500);
 scene.getStylesheets().add("Viper.css");

@@ -1,10 +1,11 @@
-package application;
+package GUI;
 
 import javafx.stage.*;	
 import javafx.scene.*;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import DataBase.Methods;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,14 +15,13 @@ public class Maindup extends Application {
 	static Stage window;
 	public static void main(String[] args) throws Exception {
 		launch(args);
-		
 	}
 
 	@Override
 	public void start(Stage window) throws Exception {
-		window = LoginC.loginScreen();
-		window.show();
-	
+		Methods.startApp(LoginC.loginScreen());
 	}
-	
+	public static void restart() throws Exception {
+		Methods.startApp(LoginC.loginScreen());
+	}
 }
