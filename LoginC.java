@@ -1,5 +1,8 @@
-package application;
-
+package GUI;
+import Classes.Account;
+import Classes.Admin;
+import DataBase.DatabaseMethods;
+import DataBase.Methods;
 import javafx.geometry.Insets;	
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -11,15 +14,12 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class LoginC {
+public class LoginC extends Account{
 	static boolean isCorrect;
 	private static PasswordField p;
 	private static TextField name;
 	static Account account;
 	static Stage window;
-	public static void main(String[] args) throws Exception{
-
-	}
 	
 	public static Stage loginScreen() throws Exception {
 	
@@ -60,19 +60,21 @@ public class LoginC {
 	// Connection Label
 	Label connectionStatus = new Label("Status: " + DatabaseMethods.isConnected());
 	GridPane.setConstraints(connectionStatus, 1, 10);
+	
 	logInbutton.setOnAction(e -> {
 		try {
-			int test = DatabaseMethods.pullPassword(name.getText()).compareTo(p.getText());
-			if(test == 0) {
-			window.close();
-			MainMenuC.menuScreen();
-			name.clear();
-			p.clear();
-			}
+			if(isAdmin())
+				adminloginButtonClick();
+
+			else 
+				customerLoginButtonClick();
 		} catch (Exception e1) {
-			Methods.popup("Error", "Invalid Username/Password");
-		}	
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
 	});
+		
 	signupbutton.setOnAction(e -> {
 		try {
 			SignUpC.signupScreen();
@@ -86,8 +88,73 @@ public class LoginC {
 	Scene scene = new Scene(grid, 550, 500);
 	window.setScene(scene);
 	return window;
+	
 	}
 	public static String getlogin() {
 		return name.getText();
 	}
+	public static void adminloginButtonClick() {
+			try {
+			
+			 if ((Admin.getUsername().compareTo(name.getText()) == 0) ||
+			(Admin.getPassword().compareTo(p.getText()) == 0)){
+				window.close();
+				AdminMainMenu.AdminmenuScreen();;
+			}
+			else 
+				Methods.popup("Error", "Invalid Username/Password");
+				
+			} catch (Exception e1) {
+				Methods.popup("Error", "Invalid Username/Password");
+			}			
+		
+	}
+	public static void customerLoginButtonClick() {
+		try {
+		int customertest =DatabaseMethods.pullPassword(name.getText()).compareTo(p.getText());
+		if (customertest == 0) {
+			window.close();
+			MainMenuC.menuScreen();
+		}
+		else 
+			Methods.popup("Error", "Invalid Username/Password");
+		}
+		catch (Exception e1) {
+			Methods.popup("Error", "Invalid Username/Password");
+		}
+	}
+	public static boolean isUser() throws Exception {
+		int customertest =DatabaseMethods.pullPassword(name.getText()).compareTo(p.getText());
+		if (customertest == 0)
+			return true;
+		else 
+			return false;
+	}
+	public static boolean isAdmin() throws Exception {
+		if ((Admin.getUsername().compareTo(name.getText()) == 0) ||
+				(Admin.getPassword().compareTo(p.getText()) == 0))
+			return true;
+		else 
+			return false;
+		}
+	public static Stage relog() throws Exception {
+		// TODO Auto-generated method stub
+		return loginScreen();
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

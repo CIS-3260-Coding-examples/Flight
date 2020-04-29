@@ -1,9 +1,11 @@
-package application;
+package DataBase;
 import java.sql.Connection;	
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+
+import Classes.Account;
 
 public class DatabaseMethods {
 static Account account;
@@ -302,9 +304,10 @@ static Account account;
 			return (Integer) null;
 		}
 	}
+	//extracts customer's data and displays it in the customer info screen
 	public static Account extractor(String user) throws Exception {
 		Account account = new Account();	
-		account.setName(pullFirstName(user),pullMiddleName(user),pullLastName(user));
+		account.setName(pullFirstName(user), pullLastName(user));
 		account.setAddress(pullAddress(user));
 		account.setZipcode(pullZipCode(user));
 		account.setState(pullState(user));

@@ -1,32 +1,29 @@
-package application;
+package Classes;
+
+import java.util.ArrayList;
 
 public class Flight {
 	private int flightId;
 	private String dateCreated;
-	private String cityPrefix ;
 	private String cityName ;
-	private String destinantionPrefix;
 	private String destinantionCity;
 	private String timeIn;
 	private String timeOut;
+	private static ArrayList<Flight> newflight;
 	
 	
 	public Flight() {
 		this.flightId = 0;
 		this.dateCreated =  "";
-		this.cityPrefix ="";
 		this.cityName = "";
-		this.destinantionPrefix = "";
 		this.destinantionCity = "";
 		this.timeIn ="";
 		this.timeOut ="";
 	}
-	public Flight(int flightId ,String dateCreated,String cityPrefix, String cityName,String destinantionPrefix, String destinantionCity,String timeIn, String timeOut) {
+	public Flight(int flightId ,String dateCreated, String cityName, String destinantionCity,String timeIn, String timeOut) {
 		this.flightId = flightId;
 		this.dateCreated = dateCreated;
-		this.cityPrefix =cityPrefix;
 		this.cityName = cityName;
-		this.destinantionPrefix = destinantionPrefix;
 		this.destinantionCity = destinantionCity;
 		this.timeIn = timeIn;
 		this.timeOut = timeOut;
@@ -44,23 +41,11 @@ public class Flight {
 	public void setDateCreated(String dateCreated) {
 		this.dateCreated = dateCreated;
 	}
-	public String getCityPrefix() {
-		return cityPrefix;
-	}
-	public void setCityPrefix(String cityPrefix) {
-		this.cityPrefix = cityPrefix;
-	}
 	public String getCityName() {
 		return cityName;
 	}
 	public void setCityName(String cityName) {
 		this.cityName = cityName;
-	}
-	public String getDestinantionPrefix() {
-		return destinantionPrefix;
-	}
-	public void setDestinantionPrefix(String destinantionPrefix) {
-		this.destinantionPrefix = destinantionPrefix;
 	}
 	public String getDestinantionCity() {
 		return destinantionCity;

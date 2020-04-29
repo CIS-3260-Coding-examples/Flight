@@ -1,4 +1,4 @@
-package application;
+package DataBase;
 import java.util.Scanner;
 
 import javafx.geometry.Insets;
@@ -61,7 +61,7 @@ public class NewMethods{
 	}
 	
 
-}
+
 
 
 //State Drop BOX
@@ -81,21 +81,5 @@ public class NewMethods{
 	VBox layout = new VBox(10);
 	layout.setPadding(new Insets(20,20,20,20));
 	layout.getChildren().addAll(choiceBox);
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	}
+	}

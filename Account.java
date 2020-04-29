@@ -1,38 +1,50 @@
-package application;
-
+package Classes;
 import java.util.Date;	
 import java.util.Random;
 public class Account {
-Random rand = new Random();
 public Date dateCreated = new Date();
 private String firstName = " N/a";
 private String lastName = "N/a";
-private String middleName = "N/a";
 private String gender = "N/a";
 private String DOB = "00/00/0000";
 private String address = "N/a";
+private String state = "N/a";
 private String email = "N/a";
 public String userName = "N/a";		// username made-up by user | Login info
 private String password = "00000000"; //password initally 8 zeros  |  Login info
-public int accountID; // 10-digit account number...... generated when creating an account
+public int accountId; // 10-digit account number...... generated when creating an account
 private String question1 = "N/a";
 private String answer1 = "N/a";
-private String zipcode;
-
-public Account() {
-	this.dateCreated = new Date();
-	this.accountID = rand.nextInt(100000);
+private String zipcode = "000000";
 	
+public Account(){
 	
 }
+public Account(String firstname, String lastname, String address, String zipcode, String state, String username, String password, String securityquestion, String securityanswer) {
+	this.firstName = firstname;
+	this.lastName = lastname;
+	this.address = address;
+	this.zipcode = zipcode;
+	this.state = state;
+	this.userName = username;
+	this.password = password;
+	this.question1 = securityquestion;
+	this.answer1 = securityanswer;
+	this.dateCreated = new Date();
+}
+public void setAccountId(int accountId) {
+	this.accountId = accountId;
+}
+public int getAccountId() {
+	return accountId;
+}
 public String getFullName() {
-	String fullName = (firstName + " " + middleName + " " + lastName);
+	String fullName = (firstName + " " + lastName);
 	return fullName;
 }
 
-public void setName(String fName, String mName, String lName) {
+public void setName(String fName, String lName) {
 	this.firstName = fName;
-	this.middleName  = mName;
 	this.lastName  = lName;	
 }
 
@@ -77,13 +89,6 @@ public void setUserName(String newUserName) {
 	this.userName = newUserName;
 }
 
-public int getAccountID(){
-	return accountID;
-}
-public void setAccountID(int x) {
-	this.accountID = x;
-}
-
 public String getPassword() {
 	return password;
 }
@@ -111,6 +116,23 @@ public String getZipcode() {
 public void setZipcode(String zipcode) {
 	this.zipcode = zipcode;
 }
-
+public String getState() {
+	return state;
+}
+public void setState(String state) {
+	this.state = state;
+}
+public String getFirstName() {
+	return firstName;
+}
+public void setFirstName(String firstName) {
+	this.firstName = firstName;
+}
+public String getLastName() {
+	return lastName;
+}
+public void setLastName(String lastName) {
+	this.lastName = lastName;
+}
 
 }
