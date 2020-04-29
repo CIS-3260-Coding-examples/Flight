@@ -11,13 +11,14 @@ private String middleName = "N/a";
 private String gender = "N/a";
 private String DOB = "00/00/0000";
 private String address = "N/a";
+private String state = "N/a";
 private String email = "N/a";
 public String userName = "N/a";		// username made-up by user | Login info
 private String password = "00000000"; //password initally 8 zeros  |  Login info
 public int accountID; // 10-digit account number...... generated when creating an account
 private String question1 = "N/a";
 private String answer1 = "N/a";
-private String zipcode;
+private String zipcode = "000000";
 
 public Account() {
 	this.dateCreated = new Date();
@@ -110,6 +111,12 @@ public String getZipcode() {
 }
 public void setZipcode(String zipcode) {
 	this.zipcode = zipcode;
+}
+public String getState() {
+	return state;
+}
+public void setState(String state) {
+	this.state = state;
 }
 
 

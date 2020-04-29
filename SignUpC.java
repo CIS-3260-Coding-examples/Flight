@@ -6,15 +6,28 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class SignUpC {
 	static Scene scene;
 	static Stage window = new Stage();
+	static boolean answer;
+	static TextField first;
+	static TextField last;
+	static TextField address1;
+	static TextField zipcode1;
+	static TextField state1;
+	static TextField ssn1;
+	static TextField question1;
+	static TextField answer1;
+	static TextField tusername;
+	static TextField tpassword;
 	
+	Account account = new Account();
 public static void signupScreen() {
-	window.initModality(Modality.APPLICATION_MODAL);
+	window.setTitle("Registration");
 	GridPane grid = new GridPane();
 	grid.setPadding(new Insets(10,10,10,10));
 	grid.setHgap(8);
@@ -25,14 +38,14 @@ public static void signupScreen() {
 	GridPane.setConstraints(fName, 0, 0);
 	
 	//textField firstname
-	TextField first = new TextField();
+	first = new TextField();
 	GridPane.setConstraints(first, 1, 0);
 			
 	//label lastname
 	Label lName = new Label("Last Name:");
 	GridPane.setConstraints(lName, 3, 0);
 	//textField lastname
-	TextField last = new TextField();
+	last = new TextField();
 	GridPane.setConstraints(last, 4, 0);
 	grid.setAlignment(Pos.CENTER);
 			
@@ -41,7 +54,7 @@ public static void signupScreen() {
 	GridPane.setConstraints(address, 0, 1);
 			
 	//textField firstname
-	TextField address1 = new TextField();
+	address1 = new TextField();
 	GridPane.setConstraints(address1, 1, 1);
 			
 	//label Address
@@ -49,7 +62,7 @@ public static void signupScreen() {
 	GridPane.setConstraints(zipcode, 0, 3);
 			
 	//textField firstname
-	TextField zipcode1 = new TextField();
+	zipcode1 = new TextField();
 	GridPane.setConstraints(zipcode1, 1, 3);
 			
 	//label zipcode
@@ -57,7 +70,7 @@ public static void signupScreen() {
 	GridPane.setConstraints(state, 3, 1);
 			
 	//textField zipcode
-	TextField state1 = new TextField();
+	state1 = new TextField();
 	GridPane.setConstraints(state1, 4, 1);
 			
 	//label ssn
@@ -65,7 +78,7 @@ public static void signupScreen() {
 	GridPane.setConstraints(ssn, 3, 3);
 			
 	//textField ssn
-	TextField ssn1 = new TextField();
+	ssn1 = new TextField();
 	GridPane.setConstraints(ssn1, 4, 3);
 			
 	//label Question
@@ -73,7 +86,7 @@ public static void signupScreen() {
 	GridPane.setConstraints(question, 0, 4);
 			
 	//textField Question
-	TextField question1 = new TextField();
+	question1 = new TextField();
 	GridPane.setConstraints(question1, 1, 4);
 			
 	//label Answer
@@ -81,7 +94,7 @@ public static void signupScreen() {
 	GridPane.setConstraints(answer, 3, 4);
 			
 	//textField answer
-	TextField answer1 = new TextField();
+	answer1 = new TextField();
 	GridPane.setConstraints(answer1, 4, 4);
 			
 	//label username
@@ -89,32 +102,73 @@ public static void signupScreen() {
 	GridPane.setConstraints(Lusername, 0, 5);
 			
 	//textField username
-	TextField Tusername = new TextField();
-	GridPane.setConstraints(Tusername, 1, 5);
+	tusername = new TextField();
+	GridPane.setConstraints(tusername, 1, 5);
 		
 	////label password
 	Label Lpassword = new Label("Password:");
 	GridPane.setConstraints(Lpassword, 3, 5);
 			
 	//textField password
-	TextField Tpassword = new TextField();
-	GridPane.setConstraints(Tpassword, 4, 5);
+	tpassword = new TextField();
+	GridPane.setConstraints(tpassword, 4, 5);
 
 	//button register
-	Button cancelbutton = new Button("Main Menu");
+	Button cancelbutton = new Button("Back");
 	GridPane.setConstraints(cancelbutton, 0, 6);
 	
 	Button donebutton = new Button("Submit");
 	GridPane.setConstraints(donebutton, 1, 6);
-	
-	donebutton.setOnAction(e -> window.close());
-	//cancel button clicked
+
+	window.setOnCloseRequest(e -> {
+	e.consume();
+	closeProgram();
+	});
+	cancelbutton.setOnAction(e -> {
+		e.consume();
+		closeProgram();
+		});
+	donebutton.setOnAction(e -> {
+		
+	});
 	
 	grid.getChildren().addAll(fName, first, lName, last, address, address1, zipcode,zipcode1,state, state1,ssn, 
-			ssn1, question, question1, answer, answer1, Lusername, Tusername,Lpassword, Tpassword,cancelbutton,donebutton);
+			ssn1, question, question1, answer, answer1, Lusername, tusername,Lpassword, tpassword,cancelbutton,donebutton);
 	scene = new Scene(grid, 550, 500);
 	window.setScene(scene);
 	window.showAndWait();
 	
 }
+public static boolean confirmBox(String title, String message) {
+	
+	Stage window = new Stage();
+	window.initModality(Modality.APPLICATION_MODAL);
+	window.setTitle(title);
+	window.setMinWidth(250);
+	Label label = new Label(message);
+	
+	Button yesB = new Button("Yes");
+	yesB.setOnAction(e -> {
+		answer = true;
+		window.close();
+	});
+	Button noB = new Button("No");
+	noB.setOnAction(e -> {
+	answer = false;
+	window.close();
+	});
+	VBox layout = new VBox();
+	layout.getChildren().addAll(label, yesB, noB);
+	layout.setAlignment(Pos.CENTER);
+	Scene scene = new Scene(layout);
+	window.setScene(scene);
+	window.showAndWait();
+	return answer;
 }
+public static void closeProgram() {
+	boolean answer = SignUpC.confirmBox("Are you sure?", "Are you sure you want to exit the registration?");
+	if(answer)
+		window.close();
+}
+}
+
