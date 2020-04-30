@@ -1,19 +1,32 @@
-package application;
+package DataBase;
 import java.sql.Connection;	
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import Classes.Account;
+import GUI.PasswordRecoveryC;
+
 public class DatabaseMethods {
 static Account account;
 	public static void main(String[] args) throws Exception {
-	makeaccount("Alex","larson", "1231 sun avenue", "1323", "GA", "Godofwar", "password", "tempquestion", "tempanswer");
-	inputregister();
-	
+		DatabaseMethods.extractor("FloridaMon").getLastName();
 	}
-	public static void makeaccount(String firstname, String lastname, String tempaddress, String tempzipcode, String tempstate, String tempusername, String temppassword, String tempquestion, String tempanswer) {
-	account = new Account(firstname, lastname, tempaddress, tempzipcode, tempstate, tempusername, temppassword,tempquestion, tempanswer); 
+	public static boolean userExists(String user) throws Exception {
+		boolean exists = false;
+		ArrayList<String> userlist = getUserList();
+		for(int i = 0; i < userlist.size(); i++) {
+			if(userlist.get(i).compareTo(user) == 0)
+			exists = true;
+		}
+		return exists;
+	}
+	public static void makeFlight(String ID_flight, String date, String city_name, String tempzipcode, String tempstate, String tempusername, String temppassword, String tempquestion, String tempanswer, String ssn) {
+		account = new Account(firstname, lastname, tempaddress, tempzipcode, tempstate, tempusername, temppassword,tempquestion, tempanswer, ssn); 
+	}
+	public static void makeaccount(String firstname, String lastname, String tempaddress, String tempzipcode, String tempstate, String tempusername, String temppassword, String tempquestion, String tempanswer, String ssn) {
+	account = new Account(firstname, lastname, tempaddress, tempzipcode, tempstate, tempusername, temppassword,tempquestion, tempanswer, ssn); 
 	}
 	public static int idMaker() {
 		int id = (int)(Math.random() * 999999) + 800000;
@@ -302,6 +315,77 @@ static Account account;
 			return (Integer) null;
 		}
 	}
+	public static String pullQuestion(String user) throws Exception {
+		String question;
+		try {
+			Connection con = getConnection();
+			PreparedStatement statement = con.prepareStatement("SELECT security_question FROM Customer WHERE username = '" + user + "'");
+			ResultSet result = statement.executeQuery();
+			ArrayList<String> array = new ArrayList<String>();
+			while(result.next()) {
+				array.add(result.getString("security_question"));
+			}
+			question = array.get(0);
+			return question;
+		}
+		catch(Exception e) {
+			System.out.println(e);
+			return null;
+		}
+	}
+	public static String pullAnswer(String user) throws Exception {
+		String answer;
+		try {
+			Connection con = getConnection();
+			PreparedStatement statement = con.prepareStatement("SELECT security_answer FROM Customer WHERE username = '" + user + "'");
+			ResultSet result = statement.executeQuery();
+			ArrayList<String> array = new ArrayList<String>();
+			while(result.next()) {
+				array.add(result.getString("security_answer"));
+			}
+			answer = array.get(0);
+			return answer;
+		}
+		catch(Exception e) {
+			System.out.println(e);
+			return null;
+		}
+	}
+	public static String pullSsn(String user) throws Exception {
+		String ssn;
+		try {
+			Connection con = getConnection();
+			PreparedStatement statement = con.prepareStatement("SELECT ssn FROM Customer WHERE username = '" + user + "'");
+			ResultSet result = statement.executeQuery();
+			ArrayList<String> array = new ArrayList<String>();
+			while(result.next()) {
+				array.add(result.getString("security_answer"));
+			}
+			ssn = array.get(0);
+			return ssn;
+		}
+		catch(Exception e) {
+			System.out.println(e);
+			return null;
+		}
+	}
+	public static ArrayList<String> getFlightIdList() throws Exception {
+		try {
+			Connection con = getConnection();
+			PreparedStatement statement = con.prepareStatement("SELECT ID_flight FROM Flight");
+			ResultSet result = statement.executeQuery();
+			
+			ArrayList<String> array = new ArrayList<String>();
+			while(result.next()) {
+				array.add(result.getString("ID_flight"));
+			}
+			return array;
+		}
+		catch(Exception e) {
+			System.out.println(e);
+			return null;
+		}
+	}
 	//extracts customer's data and displays it in the customer info screen
 	public static Account extractor(String user) throws Exception {
 		Account account = new Account();	
@@ -310,14 +394,30 @@ static Account account;
 		account.setZipcode(pullZipCode(user));
 		account.setState(pullState(user));
 		account.setAccountId(pullCustomerId(user));
+		account.setQuestion(pullQuestion(user));
+		account.setAnswer(pullAnswer(user));
+		account.setSsn(pullSsn(user));
 		return account;
 }
+	public static void extractorLocal(String user) throws Exception {	
+		account.setName(pullFirstName(user), pullLastName(user));
+		account.setAddress(pullAddress(user));
+		account.setZipcode(pullZipCode(user));
+		account.setState(pullState(user));
+		account.setAccountId(pullCustomerId(user));
+		account.setQuestion(pullQuestion(user));
+		account.setAnswer(pullAnswer(user));
+		account.setSsn(pullSsn(user));
+}
+	public static void setLocal() throws Exception {
+		extractorLocal(PasswordRecoveryC.getlogin());
+	}
 	
-	public static void register(int customerid, String firstname, String lastname, String address, int zipcode, String state, String username, String password, String securityquestion, String securityanswer) throws Exception {
+	public static void register(int customerid, String firstname, String lastname, String address, int zipcode, String state, String username, String password, String security_question, String security_answer, String ssn) throws Exception {
 		try {
 			Connection con = getConnection();
-			PreparedStatement statement = con.prepareStatement("INSERT INTO Customer(ID_customer, first_name, last_name, address, zip_code, state, username, password, security_question, security_answer) Values "
-					+ "('" + customerid + "', '" + firstname + "', '" + lastname + "', '" + address + "', '" + zipcode + "', '" + state + "', '" + username + "', '" + password + "', '" + securityquestion + "', '" + securityanswer + "');");
+			PreparedStatement statement = con.prepareStatement("INSERT INTO Customer(ID_customer, first_name, last_name, address, zip_code, state, username, password, security_question, security_answer, ssn) Values "
+					+ "('" + customerid + "', '" + firstname + "', '" + lastname + "', '" + address + "', '" + zipcode + "', '" + state + "', '" + username + "', '" + password + "', '" + security_question + "', '" + security_answer + "', '" + ssn + "');");
 			statement.executeUpdate();
 		}
 		catch(Exception e) {
@@ -325,6 +425,6 @@ static Account account;
 		}
 	}
 	public static void inputregister() throws NumberFormatException, Exception {
-		register(idMaker(), account.getFirstName(), account.getLastName(), account.getAddress(), Integer.parseInt(account.getZipcode()), account.getState(), account.getUserName(), account.getPassword(), account.getQuestion1(), account.getAnswer1());
+		register(idMaker(), account.getFirstName(), account.getLastName(), account.getAddress(), Integer.parseInt(account.getZipcode()), account.getState(), account.getUserName(), account.getPassword(), account.getQuestion(), account.getAnswer(), account.getSsn());
 	}
 }
