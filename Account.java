@@ -1,5 +1,4 @@
-package application;
-
+package Classes;
 import java.util.Date;	
 import java.util.Random;
 public class Account {
@@ -14,14 +13,15 @@ private String email = "N/a";
 public String userName = "N/a";		// username made-up by user | Login info
 private String password = "00000000"; //password initally 8 zeros  |  Login info
 public int accountId; // 10-digit account number...... generated when creating an account
-private String question1 = "N/a";
-private String answer1 = "N/a";
+private String question = "N/a";
+private String answer = "N/a";
 private String zipcode = "000000";
+private String ssn = "000-00-0000";
 	
-Account(){
+public Account(){
 	
 }
-Account(String firstname, String lastname, String address, String zipcode, String state, String username, String password, String securityquestion, String securityanswer) {
+public Account(String firstname, String lastname, String address, String zipcode, String state, String username, String password, String security_question, String security_answer, String ssn) {
 	this.firstName = firstname;
 	this.lastName = lastname;
 	this.address = address;
@@ -29,9 +29,10 @@ Account(String firstname, String lastname, String address, String zipcode, Strin
 	this.state = state;
 	this.userName = username;
 	this.password = password;
-	this.question1 = securityquestion;
-	this.answer1 = securityanswer;
+	this.question = security_question;
+	this.answer = security_answer;
 	this.dateCreated = new Date();
+	this.ssn = ssn;
 }
 public void setAccountId(int accountId) {
 	this.accountId = accountId;
@@ -96,21 +97,6 @@ public String getPassword() {
 public void setPassword(String newPassword) {
 	this.password = newPassword;
 }
-
-public String getQuestion1() {
-	return question1;
-}
-public void setQuestion1(String question) {
-	this.question1 = question;
-}
-
-public String getAnswer1() {
-	return answer1;
-}
-public void setAnswer1(String answer) {
-	this.answer1 = answer;
-}
-
 public String getZipcode() {
 	return zipcode;
 }
@@ -134,6 +120,24 @@ public String getLastName() {
 }
 public void setLastName(String lastName) {
 	this.lastName = lastName;
+}
+public String getSsn() {
+	return ssn;
+}
+public void setSsn(String ssn) {
+	this.ssn = ssn;
+}
+public String getQuestion() {
+	return question;
+}
+public void setQuestion(String question) {
+	this.question = question;
+}
+public String getAnswer() {
+	return answer;
+}
+public void setAnswer(String answer) {
+	this.answer = answer;
 }
 
 }
