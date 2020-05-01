@@ -12,16 +12,21 @@ import javafx.stage.Stage;
 
 public class NewMethods{
 	
+	//needs to delete
+	public static void main(String[] args) {
+		String tpassword = "aaaaaaaaaaaaaaaaaaaaaaaaa";
+		System.out.print(checkPassword(tpassword));
+		
+	}
+	
+	
+	
+	
 	public static void popup(String message) {
 		//Displays Error Page for invalid 
 		Stage invalidError = new Stage();
 		invalidError.setTitle("Error");
 		Label errorType = new Label(message);
-		
-		
-		
-		
-		
 		
 		StackPane layout = new StackPane();
 		layout.getChildren().addAll(errorType);
@@ -33,6 +38,29 @@ public class NewMethods{
 	}
 	
 	
+	
+	
+	
+	public static boolean checkPassword(String password) {
+		final int LENGTH_OF_VALID_PASSWORD = 30;	// Valid length of password
+		final int MINIMUM_NUMBER_OF_DIGITS = 5;	// Minimum digits it must contain
+			if((isLengthValid(password, LENGTH_OF_VALID_PASSWORD) == false || (isOnlyLettersAndDigits(password)) == false))
+			return true;
+			
+		return false;
+	}
+	public static boolean isLengthValid(String password, int validLength) {
+		return password.length() >= validLength;
+	}
+	public static boolean isOnlyLettersAndDigits(String password) {
+		for (int i = 0; i < password.length(); i++) {
+			if (!Character.isLetterOrDigit(password.charAt(i))) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	public static  Boolean checkZipCode(String zipCode) {
 		
 		String zipCodeC = zipCode;
@@ -44,9 +72,10 @@ public class NewMethods{
 				 (Character.isDigit(zipCodeC.charAt(3))) &&
 				 (Character.isDigit(zipCode.charAt(4))))
 			return true;
-	
+		else
 		
 	return false;
+	
 	
 	}
 
@@ -78,28 +107,4 @@ public static void startApp(Stage stage) {
 	stage.show();
 	}
 	
-
-
-
 }
-//State Drop BOX
-
-//  import java.fx.scene.control.ChoiceBox;
-/*
-
-	ChoiceBox<String> choiceBox = new ChoiceBox<>();
-	
-	choiceBox.getItems().addAll("AL","AK","AS","AZ","AR","CA","CO","CT","DE","DC","FL","GA","GU","HI","ID",
-								"IL","IN","IA","KS","KY","LA","ME","MD","MH","MA","MI","FM","MN","MS","MO",
-								"MT","NE","NV","NH","NJ","NM","NY","NC","ND","NM","OH","OK","OR","PW","PA",
-								"PR","RI","SC","SD","TN","TX","UT","VT","VA","VI","WA","WV","WI","WY");
-	
-	choiceBox.setValue("Choose State/Province");
-	
-	VBox layout = new VBox(10);
-	layout.setPadding(new Insets(20,20,20,20));
-	layout.getChildren().addAll(choiceBox);
-	}
-	}
-	
-	*/
