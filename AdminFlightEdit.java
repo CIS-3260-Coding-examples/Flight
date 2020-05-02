@@ -39,8 +39,6 @@ public class AdminFlightEdit {
 	dateColumn.setMinWidth(200);
 	dateColumn.setCellValueFactory(new PropertyValueFactory<>("dateCreated"));
 	
-
-	
 	//origin city column
 	TableColumn< Flight, String> originCityColumn = new TableColumn<>("City Name");
 	originCityColumn.setMinWidth(200);
@@ -73,26 +71,20 @@ public class AdminFlightEdit {
 	dateInput.setPromptText("date");
 	dateInput.setMinWidth(15);
 
-
-	
 	//origin city  input 
 	originCityInput = new TextField();
 	originCityInput.setPromptText("city name");
 	originCityInput.setMinWidth(15);
-
-
 	
 	//destination city input 
 	destinationCityInput = new TextField();
 	destinationCityInput.setPromptText("dest city");
 	destinationCityInput.setMinWidth(15);
-
 	
 	//limit input 
 	timeInInput = new TextField();
 	timeInInput.setPromptText("time in");
 	timeInInput.setMinWidth(15);
-
 	
 	//passanger input 
 	timeOutInput = new TextField();
@@ -143,6 +135,7 @@ public class AdminFlightEdit {
 	scene = new Scene(layout);
 	window.setOnCloseRequest(e -> {
 		try {
+			AdminTickets.closeTicketManager();
 			AdminMainMenu.AdminmenuScreen();
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
