@@ -96,4 +96,7 @@ public static ObservableList<Ticket> getTicket() throws Exception{
 public static void refreshFlights() throws Exception {
 manageTickets();
 }
+public static void closeTicketManager() {
+	window.close();
+}
 }
