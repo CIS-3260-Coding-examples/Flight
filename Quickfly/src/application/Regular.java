@@ -1,22 +1,16 @@
 package application;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.ArrayList;
 
-import javafx.application.Preloader;
-import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
+import DataBase.DatabaseMethods;
 
-public class Regular extends Preloader{
+public class Regular{
 
-public static void main(String[] args) {
-	System.out.println(nameChecker("Alex"));
-	System.out.println(addressChecker("1132 Midsummer Ct."));
-	System.out.println(ssnChecker("135-12-1232"));
-	System.out.println(zipcodeChecker("30411"));
-	usernameChecker("Lumon34");
-	System.out.println(registerChecker("Alex", "Hansen", "1645 Midsummer Ct.", "36432", "132-16-2312", "Lumon34"));
+public static void main(String[] args) throws Exception {
+	ArrayList<String> a = DatabaseMethods.getCustomerUsernameList();
+
+	System.out.println(DatabaseMethods.returnAdminCustomerIdFormat(0));
+	
 }
 public static boolean nameChecker(String name) {
 	return name.matches("[a-zA-Z]+");
@@ -44,17 +38,4 @@ public static boolean registerChecker(String firstName, String lastName, String 
 	}
 		return false;
 	}
-@Override
-public void start(Stage arg0) throws Exception {
-	StackPane layout = new StackPane();
-	Scene scene = new Scene(layout, 400, 500);
-	scene.getStylesheets().add("splash.css.txt");
-	notifyPreloader(new Preloader.StateChangeNotification(Preloader.StateChangeNotification.Type.BEFORE_START)); 
-	arg0.setTitle("loading");
-	arg0.setScene(scene);
-	arg0.setResizable(true);
-	arg0.centerOnScreen();
-	arg0.show();
-	
-}
 }

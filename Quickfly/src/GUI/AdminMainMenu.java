@@ -31,10 +31,13 @@ GridPane.setConstraints(editingflight, 0, 0);
 
 Button editingcustomers = new Button("Manage Customers");
 GridPane.setConstraints(editingcustomers, 0, 1);
+
+Button managetickets = new Button("Manage Tickets");
+GridPane.setConstraints(managetickets, 0, 2);
 	
 //logout
 Button logout = new Button("Log Out");
-GridPane.setConstraints(logout, 0,2);
+GridPane.setConstraints(logout, 0,3);
 
 editingcustomers.setOnAction(e-> {
 	try {
@@ -45,7 +48,14 @@ editingcustomers.setOnAction(e-> {
 		e3.printStackTrace();
 	}
 });
-
+managetickets.setOnAction(e -> {
+	try {
+		AdminTickets.manageTickets();
+	} catch (Exception e3) {
+		// TODO Auto-generated catch block
+		e3.printStackTrace();
+	}
+});
 editingflight.setOnAction(e -> {
 	window.close();
 	try {
@@ -68,7 +78,7 @@ logout.setOnAction(e -> {
 	
 });
 
-grid.getChildren().addAll(editingflight, logout, editingcustomers);
+grid.getChildren().addAll(editingflight, logout, editingcustomers, managetickets);
 
 scene = new Scene(grid, 400, 500);
 scene.getStylesheets().add("admin.css.txt");

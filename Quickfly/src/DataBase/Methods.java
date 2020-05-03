@@ -23,7 +23,7 @@ public class Methods {
 			
 			StackPane layout = new StackPane();
 			layout.getChildren().add(label);
-			Scene scene = new Scene(layout, 200, 200);
+			Scene scene = new Scene(layout, 300, 200);
 			scene.getStylesheets().add("alert.css.txt");
 			popup.setScene(scene);		
 			popup.showAndWait();

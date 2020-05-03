@@ -27,7 +27,7 @@ public class CustomerBookAFlight{
 	//flight Id column
 	TableColumn<Flight, String> flightIdColumn = new TableColumn<>("Flight Id");
 	flightIdColumn.setMinWidth(200);
-	flightIdColumn.setCellValueFactory(new PropertyValueFactory<>("flightId"));
+	flightIdColumn.setCellValueFactory(new PropertyValueFactory<>("flightId")); 
 	
 	
 	////Date column

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import Classes.Account;
 import Classes.Flight;
 import GUI.AdminFlightEdit;
+import GUI.AdminTickets;
 import GUI.LoginC;
 import GUI.PasswordRecoveryC;
 import javafx.collections.ObservableList;
@@ -230,31 +231,13 @@ static Flight flight;
 			return null;
 		}
 	}
-	//returns a middle name as a String for a specific user
-	public static String pullMiddleName(String user) throws Exception {
-		String middlename;
-		try {
-			Connection con = getConnection();
-			PreparedStatement statement = con.prepareStatement("SELECT middle_name FROM Customer WHERE username = '" + user + "'");
-			ResultSet result = statement.executeQuery();
-			ArrayList<String> array = new ArrayList<String>();
-			while(result.next()) {
-				array.add(result.getString("middle_name"));
-			}
-			middlename = array.get(0);
-			return middlename;
-		}
-		catch(Exception e) {
-			System.out.println(e);
-			return null;
-		}
-	}
+
 	//returns a last name as a String for a specific user
 	public static String pullLastName(String user) throws Exception {
 		String lastname;
 		try {
 			Connection con = getConnection();
-			PreparedStatement statement = con.prepareStatement("SELECT last_name FROM Customer " + user);
+			PreparedStatement statement = con.prepareStatement("SELECT last_name FROM Customer WHERE username = '" + user + "'");
 			ResultSet result = statement.executeQuery();
 			ArrayList<String> array = new ArrayList<String>();
 			while(result.next()) {
@@ -301,6 +284,24 @@ static Flight flight;
 			}
 			state = array.get(0);
 			return state;
+		}
+		catch(Exception e) {
+			System.out.println(e);
+			return null;
+		}
+	}
+	public static String pullUser(String id) throws Exception {
+		String user;
+		try {
+			Connection con = getConnection();
+			PreparedStatement statement = con.prepareStatement("SELECT username FROM Customer WHERE username = '" + id + "'");
+			ResultSet result = statement.executeQuery();
+			ArrayList<String> array = new ArrayList<String>();
+			while(result.next()) {
+				array.add(result.getString("state"));
+			}
+			user = array.get(0);
+			return user;
 		}
 		catch(Exception e) {
 			System.out.println(e);
@@ -702,8 +703,8 @@ static Flight flight;
 	//returns a flight time of departure a specific row index as a string
 	public static String returnFlightTimeOutFormat(int i) throws Exception {
 		String format = "";
-		ArrayList<String> timein = getArrivalTimeList();
-		String timeout1 = timein.get(i);
+		ArrayList<String> timeout = getDepartureTimeList();
+		String timeout1 = timeout.get(i);
 		format = timeout1;
 		return format;
 	}
@@ -927,6 +928,8 @@ public static void deleteFlight(String flightid) throws Exception {
 		statement.executeUpdate();
 	}
 	catch(Exception e) {
+		Methods.popup("Error", "This flight has been booked.\n Delete tickets to remove.");
+		AdminTickets.manageTickets();
 		System.out.println(e);		
 	}
 }
@@ -937,6 +940,9 @@ public static void deleteCustomer(String customerid) throws Exception {
 		statement.executeUpdate();
 	}
 	catch(Exception e) {
+		Methods.popup("Error", "Customer has existing flights.\n"
+				+ "Delete flights to remove customer");
+		AdminTickets.manageTickets();
 		System.out.println(e);		
 	}
 }
@@ -1164,78 +1170,78 @@ public static ArrayList<String> getCustomerSsnList() throws Exception {
 }
 public static String returnAdminCustomerIdFormat(int i) throws Exception {
 	String format = "";
-	ArrayList<String> id = getCustomerIdList();
-	String id1 = id.get(i);
+	ArrayList<String> user = getCustomerUsernameList();
+	String id1 = Integer.toString(pullCustomerId(user.get(i)));
 	format = id1;
 	return format;
 }
 public static String returnCustomerNameFormat(int i) throws Exception {
 	String format = "";
-	ArrayList<String> name = getCustomerNameList();
-	String name1 = name.get(i);
+	ArrayList<String> user = getCustomerUsernameList();
+	String name1 = pullFirstName(user.get(i));
 	format = name1;
 	return format;
 }
 public static String returnCustomerLastNameFormat(int i) throws Exception {
 	String format = "";
-	ArrayList<String> lastname = getCustomerLastNameList();
-	String lastname1 = lastname.get(i);
+	ArrayList<String> user = getCustomerUsernameList();
+	String lastname1 = pullLastName(user.get(i));
 	format = lastname1;
 	return format;
 }
 public static String returnCustomerAddressFormat(int i) throws Exception {
 	String format = "";
-	ArrayList<String> address = getCustomerAddressList();
-	String address1 = address.get(i);
+	ArrayList<String> user = getCustomerUsernameList();
+	String address1 = pullAddress(user.get(i));
 	format = address1;
 	return format;
 }
 public static String returnCustomerZipcodeFormat(int i) throws Exception {
 	String format = "";
-	ArrayList<String> zipcode = getCustomerZipcodeList();
-	String zipcode1 = zipcode.get(i);
+	ArrayList<String> user = getCustomerUsernameList();
+	String zipcode1 = pullZipCode(user.get(i));
 	format = zipcode1;
 	return format;
 }
 public static String returnCustomerStateFormat(int i) throws Exception {
 	String format = "";
-	ArrayList<String> state = getCustomerStateList();
-	String state1 = state.get(i);
+	ArrayList<String> user = getCustomerUsernameList();
+	String state1 = pullState(user.get(i));
 	format = state1;
 	return format;
 }
 public static String returnCustomerUsernameFormat(int i) throws Exception {
 	String format = "";
-	ArrayList<String> username = getCustomerUsernameList();
-	String username1 = username.get(i);
+	ArrayList<String> user = getCustomerUsernameList();
+	String username1 = user.get(i);
 	format = username1;
 	return format;
 }
 public static String returnCustomerPasswordFormat(int i) throws Exception {
 	String format = "";
-	ArrayList<String> password = getCustomerPasswordList();
-	String password1 = password.get(i);
+	ArrayList<String> user = getCustomerUsernameList();
+	String password1 = pullPassword(user.get(i));
 	format = password1;
 	return format;
 }
 public static String returnCustomerQuestionFormat(int i) throws Exception {
 	String format = "";
-	ArrayList<String> question = getCustomerQuestionList();
-	String question1 = question.get(i);
+	ArrayList<String> user = getCustomerUsernameList();
+	String question1 = pullQuestion(user.get(i));
 	format = question1;
 	return format;
 }
 public static String returnCustomerAnswerFormat(int i) throws Exception {
 	String format = "";
-	ArrayList<String> answer = getCustomerAnswerList();
-	String answer1 = answer.get(i);
+	ArrayList<String> user = getCustomerUsernameList();
+	String answer1 = pullAnswer(user.get(i));
 	format = answer1;
 	return format;
 }
 public static String returnCustomerSsnFormat(int i) throws Exception {
 	String format = "";
-	ArrayList<String> ssn = getCustomerSsnList();
-	String ssn1 = ssn.get(i);
+	ArrayList<String> user = getCustomerUsernameList();
+	String ssn1 = pullSsn(user.get(i));
 	format = ssn1;
 	return format;
 }

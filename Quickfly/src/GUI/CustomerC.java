@@ -108,10 +108,12 @@ public class CustomerC {
 	customerStateInput = new TextField();
 	customerStateInput.setPromptText("State");
 	customerStateInput.setMinWidth(15);
+	
 	//customer username input
 	customerUserInput = new TextField();
 	customerUserInput.setPromptText("Username");
 	customerUserInput.setMinWidth(15);
+	
 	//customer password input
 	customerPassInput = new TextField();
 	customerPassInput.setPromptText("Password");
@@ -134,8 +136,8 @@ public class CustomerC {
 	deleteButton.setOnAction(e ->{
 		try {
 			DatabaseMethods.deleteCustomer(Integer.toString(table.getSelectionModel().getSelectedItem().getAccountId()));
-			refreshCustomers();
 			deleteClicked();
+			refreshCustomers();
 		} catch (Exception e2) {
 			Methods.popup("Error", "Textfield input is invalid");
 			e2.printStackTrace();
@@ -164,7 +166,7 @@ public class CustomerC {
 	hbox.setPadding(new Insets(5,5,5,5));
 	hbox.setSpacing(1);
 	hbox.getChildren().addAll(deleteButton, addButton, customerIdInput, customerFirstInput, customerLastInput, customerAddressInput,
-			customerZipInput, customerStateInput, customerUserInput,customerPassInput, customerQuestionInput,
+			customerZipInput, customerStateInput, customerUserInput, customerPassInput, customerQuestionInput,
 			customerAnswerInput, customerSsnInput);
 	
 	//table 1
@@ -227,15 +229,15 @@ public class CustomerC {
 
 
 //table1
-public static ObservableList<Account> getCustomers() throws Exception{
+public static ObservableList<Account> getCustomers() throws Exception {
 	ObservableList<Account> account = FXCollections.observableArrayList();
-	for(int i = 0; i < DatabaseMethods.getUserList().size(); i++) {
+	for(int i = 0; i < DatabaseMethods.getCustomerIdList().size(); i++) {
 		account.add(new Account(DatabaseMethods.returnCustomerNameFormat(i), DatabaseMethods.returnCustomerLastNameFormat(i),
 		DatabaseMethods.returnCustomerAddressFormat(i), DatabaseMethods.returnCustomerZipcodeFormat(i),
 		DatabaseMethods.returnCustomerStateFormat(i), DatabaseMethods.returnCustomerUsernameFormat(i),
 		DatabaseMethods.returnCustomerPasswordFormat(i), DatabaseMethods.returnCustomerQuestionFormat(i),
 		DatabaseMethods.returnCustomerAnswerFormat(i), DatabaseMethods.returnCustomerSsnFormat(i)));
-		account.get(i).setAccountId(Integer.parseInt(DatabaseMethods.getCustomerIdList().get(i)));
+		account.get(i).setAccountId(Integer.parseInt(DatabaseMethods.returnAdminCustomerIdFormat(i)));
 	}
 	return account;	
 }
