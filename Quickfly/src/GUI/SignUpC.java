@@ -128,7 +128,7 @@ public static void signupScreen() throws Exception {
 			
 	//textField username
 	tusername = new TextField();
-	tusername.setPromptText("FrequentFlyer53");
+	tusername.setPromptText("FrequentFlyer34");
 	GridPane.setConstraints(tusername, 1, 5);
 		
 	////label password
@@ -157,7 +157,7 @@ public static void signupScreen() throws Exception {
 		});
 	signUpButton.setOnAction(e -> {	
 		if(Methods.registerChecker(first.getText(), last.getText(), address1.getText(), zipcode1.getText(), ssn1.getText(), tusername.getText()) == false) {
-			Methods.popup("Error", "Invalid input.");	
+			Methods.popup("Error", "Invalid input.");
 		}
 		else {
 		String firstname 	= first.getText();
