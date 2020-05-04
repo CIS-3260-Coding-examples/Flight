@@ -107,19 +107,21 @@ public class AdminFlightEdit {
 			DatabaseMethods.deleteFlight(table.getSelectionModel().getSelectedItem().getFlightId());
 			refreshAdminFlight();	
 			deleteClicked();
+		} catch (NullPointerException e2) {
+			Methods.popup("Error", "Textfield input is invalid");
 		} catch (Exception e1) {
 			Methods.popup("Error", "Textfield input is invalid");
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	});	
+	
 	//HBox
 	HBox hbox = new HBox();
 	hbox.setPadding(new Insets(5,5,5,5));
 	hbox.setSpacing(1);
 	hbox.getChildren().addAll(flightIdInput,dateInput, originCityInput,
 			destinationCityInput, timeInInput, timeOutInput,addButton , deleteButton );
-	
 	
 	table = new TableView<>();
 	table.setItems(CustomerBookAFlight.getFlight());

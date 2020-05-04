@@ -49,6 +49,8 @@ public class AdminTickets {
 			DatabaseMethods.deleteCustomerFlight(Integer.toString(table.getSelectionModel().getSelectedItem().getIdTicket()));
 			refreshFlights();
 			deleteClicked();
+		} catch (NullPointerException e2) {
+			Methods.popup("Error", "Textfield input is invalid");
 		} catch (Exception e2) {
 			Methods.popup("Error", "Textfield input is empty.");
 			// TODO Auto-generated catch block
